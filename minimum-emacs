@@ -1,0 +1,80 @@
+;; The absolute minimum
+
+;; (package-initialize)
+
+;; fix the delete key so that it deletes instead of backspacing
+;; (global-set-key [delete] 'delete-char)
+
+;; bind  C-h to delete. This is useful when you are not on the console
+;; so that the backspace does not give you the help command
+;; If you are always at the console, you may comment it out
+(define-key global-map "\C-h" 'backward-delete-char-untabify )
+
+;; bind M-? to help. C-h usually does this but we changed it above
+;; If you are always at the console, you may comment it out
+(define-key global-map "\M-?" 'help-for-help )
+
+;; bind C-x c to start the compiler
+(define-key ctl-x-map "c" 'compile)
+
+;; bind C-x c to start the compiler
+(define-key ctl-x-map "\C-c" 'compile)
+
+
+;; ========================================
+;; Prefer Backward-kill over backspaces
+;; ========================================
+(global-set-key "\C-w" 'backward-kill-word)
+(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\C-c\C-k" 'kill-region)
+
+;; Changes all yes/no questions to y/n type
+(fset 'yes-or-no-p 'y-or-n-p)
+
+
+;; ========================================
+;; Switching buffer
+;; ========================================
+(define-key ctl-x-map "\C-b" 'switch-to-buffer)
+(defun my-switch-to-buffer()
+  (interactive)
+  (switch-to-buffer nil)
+)
+(global-set-key "\C-[\C-[" 'my-switch-to-buffer)
+
+
+;; ========================================
+;; Compile
+;; ========================================
+(setq-default compile-target "make -k")
+(setq-default compilation-ask-about-save nil) ;; Stop asking me about
+
+(defun my-compile ()
+  (interactive)
+  (save-buffer) ;; Save Current Buffer. 
+  (compile compile-command ))
+
+(define-key ctl-x-map "c" 'my-compile)
+(define-key ctl-x-map "\C-c" 'my-compile)
+
+;; ========================================
+;; Invoke M-x without using alt key.
+;; ========================================
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key "\C-c\C-m" 'execute-extended-command)
+(global-set-key "\C-c\C-d" 'delete-horizontal-space)
+
+
+;; ========================================
+;; Indentation
+;; ========================================
+;; just spaces
+(setq-default indent-tabs-mode nil)
+
+
+;; ========================================
+;; Get rid of the bars
+;; ========================================
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
