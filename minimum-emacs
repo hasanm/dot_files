@@ -80,3 +80,31 @@
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
+
+
+
+;; ========================================
+;; IDO
+;; ========================================
+(require 'ido)
+(ido-mode t)
+(setq ido-enable-flex-matching t)
+
+
+;; ========================================
+;; Dired Target Next Window
+(setq dired-dwim-target t)
+
+
+;; ========================================
+;; C Mode
+(defun my-c-mode-common-hook ()
+  ;; my customizations for all of c-mode and related modes
+  (let ()
+    ;; Unbound the prefix key first
+    (local-set-key "\C-]" nil)
+    (local-set-key "\C-]\C-]" 'ff-find-other-file)
+    ))
+
+
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
