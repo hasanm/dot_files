@@ -108,3 +108,23 @@
 
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+
+;; ================================================================================
+;; Paredit Hooks
+
+(add-hook 'clojure-mode-hook
+          '(lambda ()
+            (enable-paredit-mode)
+            (show-paren-mode t)))
+
+(add-hook 'emacs-lisp-mode-hook
+          '(lambda ()
+            (enable-paredit-mode)
+            (show-paren-mode t)))
+
+(add-hook 'lisp-mode-hook
+          '(lambda ()
+            (enable-paredit-mode)
+            (show-paren-mode t)
+            (local-set-key (kbd "C-M-q") 'slime-macroexpand-1)))
+
