@@ -112,19 +112,20 @@
 ;; ================================================================================
 ;; Paredit Hooks
 
-(add-hook 'clojure-mode-hook
-          '(lambda ()
-            (enable-paredit-mode)
-            (show-paren-mode t)))
-
-(add-hook 'emacs-lisp-mode-hook
-          '(lambda ()
-            (enable-paredit-mode)
-            (show-paren-mode t)))
-
-(add-hook 'lisp-mode-hook
-          '(lambda ()
-            (enable-paredit-mode)
-            (show-paren-mode t)
-            (local-set-key (kbd "C-M-q") 'slime-macroexpand-1)))
+;; (require 'paredit)
+;; (add-hook 'clojure-mode-hook
+;;           '(lambda ()
+;;             (enable-paredit-mode)
+;;             (show-paren-mode t)))
+;; 
+;; (add-hook 'emacs-lisp-mode-hook
+;;           '(lambda ()
+;;             (enable-paredit-mode)
+;;             (show-paren-mode t)))
+;; 
+;; (add-hook 'lisp-mode-hook
+;;           '(lambda ()
+;;             (enable-paredit-mode)
+;;             (show-paren-mode t)
+;;             (local-set-key (kbd "C-M-q") 'slime-macroexpand-1)))
 
