@@ -4,6 +4,56 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t) 
 (package-initialize)
 
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; Always load newest byte code
+(setq load-prefer-newer t)
+
+(package-install 'use-package)
+(setq use-package-always-ensure t)
+(require 'use-package)
+
+(use-package paredit
+  :ensure t
+  :init
+  (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+  (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+  (add-hook 'ielm-mode-hook #'enable-paredit-mode)
+  (add-hook 'lisp-mode-hook #'enable-paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+  (add-hook 'scheme-mode-hook #'enable-paredit-mode)
+  :config
+  (show-paren-mode t)
+  :diminish nil)
+
+(defun djcb-zoom (n)
+  "with positive N, increase the font size, otherwise decrease it"
+  (set-face-attribute 'default (selected-frame) :height
+                      (+ (face-attribute 'default :height) (* (if (> n 0) 1 -1) 10))))
+
+(add-hook 'after-make-frame-functions
+          (lambda ()
+            ;; we want some font only in GUI Emacs
+            (when (display-graphic-p)
+              (let ()
+               (djcb-zoom 1)
+               (djcb-zoom 1)))
+            (unless (display-graphic-p)
+              (load-theme 'tango-dark))))
+
+(add-hook 'after-init-hook
+  (lambda ()
+    ;; we want some font only in GUI Emacs
+    (when (display-graphic-p)
+      (let ()
+        (djcb-zoom 1)
+        (djcb-zoom 1)))
+    (unless (display-graphic-p)
+      (load-theme 'tango-dark))))
+
 ;; fix the delete key so that it deletes instead of backspacing
 ;; (global-set-key [delete] 'delete-char)
 
@@ -40,8 +90,7 @@
 (define-key ctl-x-map "\C-b" 'switch-to-buffer)
 (defun my-switch-to-buffer()
   (interactive)
-  (switch-to-buffer nil)
-)
+  (switch-to-buffer nil))
 (global-set-key "\C-[\C-[" 'my-switch-to-buffer)
 
 
