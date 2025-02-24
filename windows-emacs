@@ -83,14 +83,6 @@
   (setq google-translate-translation-directions-alist '(("en" . "fr")
                                                         ("fr" . "en"))))
 
-(use-package go-translate
-  :config
-  (setq gt-default-translator
-        (gt-translator
-         :taker (gt-taker :langs '(en fr))
-         :engines (list (gt-google-engine) (gt-bing-engine) (gt-deepl-engine :key "90b4abff-0264-4bc7-a381-788749b1a0e2:fx"))
-         :render (gt-buffer-render))))
-
 (defun unfill-paragraph (&optional region)
   "Takes a multi-line paragraph and makes it into a single line of text."
   (interactive (progn (barf-if-buffer-read-only) '(t)))
